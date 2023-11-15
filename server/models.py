@@ -21,6 +21,7 @@ class Technician(db.Model, SerializerMixin):
     #serialize rules and relationships below, is serialization nessecary? 
     serialize_rules = ('-password', '-clients.technicians')
     clients = db.relationship('Client', back_populates='technicians')
+    pool_visits = db.relationship('PoolVisit', back_populates='technicians')
     #validations
     @validates('username')
     def validate_username(self, key, username):
@@ -46,30 +47,30 @@ class Client(db.Model, SerializerMixin):
     phone = db.Column(db.String)
     email = db.Column(db.String)
     #foreignkey
-    technicians_id = db.Column(db.Integer, db.ForeignKey('technicians.technicians_id'))
+    technicians_id = db.Column(db.Integer, db.ForeignKey('technicians.id'))
     #serialize_rules
     serialize_rules = ('-technicians.clients', '-pools.client')  
     #relationships
     technicians = db.relationship('Technician', back_populates='clients', lazy='subquery')
     pools = db.relationship('Pool', back_populates='client', cascade='all, delete-orphan')
 
-class Pool(db.Model):
+class Pool(db.Model, SerializerMixin):
     __tablename__ = 'pools'
-    pools_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     pools_location = db.Column(db.String)
     pools_size = db.Column(db.String)
     pools_condition_last_check = db.Column(db.String)
     #foreignkey
-    clients_id = db.Column(db.Integer, db.ForeignKey('clients.clients_id'))
+    clients_id = db.Column(db.Integer, db.ForeignKey('clients.id'))
     #serialize_rules
     serialize_rules = ('-client.pools', '-pool_visits.pool')
     #relationships
     client = db.relationship('Client', back_populates='pools')
     pool_visits = db.relationship('PoolVisit', back_populates='pool', cascade='all, delete-orphan')
 
-class PoolVisit(db.Model):
+class PoolVisit(db.Model, SerializerMixin):
     __tablename__ = 'pool_visits'
-    visits_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     visits_notes = db.Column(db.String)
     visits_FILTER_PSI = db.Column(db.Integer)
     visits_PH_record = db.Column(db.Integer)
@@ -77,8 +78,8 @@ class PoolVisit(db.Model):
     visits_CHEMS_USED_record = db.Column(db.Integer)
     serialize_rules = ('-technicians.pool_visits' ,'-pool.pool_visits')
 
-    technicians_id = db.Column(db.Integer, db.ForeignKey('technicians.technicians_id'))
-    technicians = db.relationship('Technicians', back_populates='pool_visits')
+    technicians_id = db.Column(db.Integer, db.ForeignKey('technicians.id'))
+    technicians = db.relationship('Technician', back_populates='pool_visits')
     
-    pools_id = db.Column(db.Integer, db.ForeignKey('pools.pools_id'))
+    pools_id = db.Column(db.Integer, db.ForeignKey('pools.id'))
     pool = db.relationship('Pool', back_populates='pool_visits')
