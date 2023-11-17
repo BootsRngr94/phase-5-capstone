@@ -19,9 +19,10 @@ class Technician(db.Model, SerializerMixin):
     username = db.Column(db.String)
     password = db.Column(db.String)
     #serialize rules and relationships below, is serialization nessecary? 
-    serialize_rules = ('-password', '-clients.technicians')
-    clients = db.relationship('Client', back_populates='technicians')
-    pool_visits = db.relationship('PoolVisit', back_populates='technicians')
+    serialize_rules = ('-clients','-password')
+
+    clients = db.relationship('Client', back_populates='technicians', lazy='dynamic')
+    pool_visits = db.relationship('PoolVisit', back_populates='technicians', lazy='subquery', cascade='all, delete-orphan')
     #validations
     @validates('username')
     def validate_username(self, key, username):
@@ -52,7 +53,7 @@ class Client(db.Model, SerializerMixin):
     serialize_rules = ('-technicians.clients', '-pools.client')  
     #relationships
     technicians = db.relationship('Technician', back_populates='clients', lazy='subquery')
-    pools = db.relationship('Pool', back_populates='client', cascade='all, delete-orphan')
+    pools = db.relationship('Pool', back_populates='client', cascade='all, delete-orphan',)
 
 class Pool(db.Model, SerializerMixin):
     __tablename__ = 'pools'
@@ -76,7 +77,8 @@ class PoolVisit(db.Model, SerializerMixin):
     visits_PH_record = db.Column(db.Integer)
     visits_CHL_record = db.Column(db.Integer)
     visits_CHEMS_USED_record = db.Column(db.Integer)
-    serialize_rules = ('-technicians.pool_visits' ,'-pool.pool_visits')
+
+    serialize_rules = ('-technicians.pool_visits' ,'-pool.pool_visits', '-pool.client', )
 
     technicians_id = db.Column(db.Integer, db.ForeignKey('technicians.id'))
     technicians = db.relationship('Technician', back_populates='pool_visits')
