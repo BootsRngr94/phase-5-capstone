@@ -24,8 +24,8 @@ if __name__ == '__main__':
 
         print('Logging techs...')
         technicians = [
-            Technician(username='MikeMike', password='letsgetThisWIN'),
-            Technician(username='Lwest', password='c0dingsGR8T'),
+            Technician(username='MikeMike', password_hash='letsgetThisWIN'),
+            Technician(username='Lwest', password_hash='c0dingsGR8T'),
             
         ]
         db.session.add_all(technicians)

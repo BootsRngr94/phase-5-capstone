@@ -3,21 +3,24 @@ from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import validates
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
-
-metadata = MetaData(naming_convention={
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-})
-db = SQLAlchemy(metadata=metadata)
+#from flask_bcrypt import Bcrypt
+from config import bcrypt, db
+from sqlalchemy.ext.hybrid import hybrid_property
+# metadata = MetaData(naming_convention={
+#     "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+# })
+# db = SQLAlchemy(metadata=metadata)
 
 
 # Models go here!
-#Main models are games, genres, consolegames, consoles. May add in user_games and users in the future.
+#Main models are Technician, Client, Pool, PoolVisit
 
 class Technician(db.Model, SerializerMixin):
     __tablename__='technicians'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String)
     password = db.Column(db.String)
+    password_hash = db.Column(db.String)
     #serialize rules and relationships below, is serialization nessecary? 
     serialize_rules = ('-clients','-password')
 
@@ -38,6 +41,23 @@ class Technician(db.Model, SerializerMixin):
             raise ValueError('Password must conatin a string!')
     def __repr__(self):
         return f'<Technicians {self.id}: {self.username}>'
+    
+    @hybrid_property
+    def password(self):
+        raise AttributeError('Password is not readable.')
+
+    @password.setter
+    def password(self, plaintext_password):
+        self.password_hash = bcrypt.generate_password_hash(
+            plaintext_password.encode('utf-8')
+        ).decode('utf-8')
+
+    def authenticate(self, plaintext_password):
+        return bcrypt.check_password_hash(
+            self.password_hash, plaintext_password.encode('utf-8')
+        )
+
+#With these changes, the password property is replaced with password_hash, and w
 
 
 

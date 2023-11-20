@@ -6,6 +6,7 @@ from flask import Flask, make_response, jsonify, request
 from flask import request
 from flask_restful import Resource
 from flask_migrate import Migrate
+from flask import render_template, redirect, url_for, session
 
 # Local imports
 from config import app, api
@@ -30,6 +31,15 @@ def technicians():
     elif request.method == 'POST':
         form_data = request.get_json()
         print(form_data)
+        # Check if the required fields are present in the request data
+        if 'username' not in form_data or 'password' not in form_data:
+            return jsonify({'error': 'Username and password are required'}), 400
+
+        # Create a new Technician instance
+        new_technician = Technician(username=form_data['username'], password_hash=form_data['password'])
+        db.session.add(new_technician)
+        db.session.commit()
+        return jsonify(new_technician.to_dict()), 201
     return response
     
 #clients route base set up
@@ -93,7 +103,30 @@ def update_or_delete_pool_visit(visit_id):
             return jsonify({'message': 'Pool visit deleted successfully'}), 200
         except Exception as e:
             return jsonify({'error': str(e)}), 500
+        
+#sign in page route
+@app.route('/signin', methods=['GET', 'POST'])
+def signin():
+    if request.method == 'POST':
+        # Get the username and password from the form
+        username = request.form.get('username')
+        password = request.form.get('password')
 
+        # Find the technician with the given username
+        technician = Technician.query.filter_by(username=username).first()
+
+        # Check if the technician exists and the password is correct
+        if technician and technician.authenticate(password):
+            # Set a session variable to indicate that the user is logged in
+            session['user_id'] = technician.id
+            return redirect(url_for('dashboard'))  # Redirect to the dashboard or another page
+
+        # If the username or password is incorrect, show an error message
+        error_message = 'Invalid username or password'
+        return render_template('signin.html', error_message=error_message)
+
+    # If it's a GET request, render the sign-in page
+    return render_template('signin.html')
 
     
 
