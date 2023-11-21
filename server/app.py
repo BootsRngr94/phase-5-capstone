@@ -22,25 +22,32 @@ def index():
 #model routes below
 
 #technicians route base setup
-@app.route('/technicians', methods=['GET', 'POST'])
-def technicians():
-    if request.method == 'GET':
-        technicians = Technician.query.all()
-        technicians_dict = [technician.to_dict(rules=('-technicians',))for technician in technicians]
-        response = make_response(technicians_dict, 200)
-    elif request.method == 'POST':
-        form_data = request.get_json()
-        print(form_data)
-        # Check if the required fields are present in the request data
-        if 'username' not in form_data or 'password' not in form_data:
-            return jsonify({'error': 'Username and password are required'}), 400
-
-        # Create a new Technician instance
-        new_technician = Technician(username=form_data['username'], password_hash=form_data['password'])
-        db.session.add(new_technician)
-        db.session.commit()
-        return jsonify(new_technician.to_dict()), 201
+@app.route('/technicians', methods=['GET'])
+def get_technicians():
+    technicians = Technician.query.all()
+    technicians_dict = [technician.to_dict(rules=('-technicians',)) for technician in technicians]
+    response = make_response(technicians_dict, 200)
     return response
+# @app.route('/technicians', methods=['GET', 'POST'])
+# def technicians():
+#     if request.method == 'GET':
+#         technicians = Technician.query.all()
+#         technicians_dict = [technician.to_dict(rules=('-technicians',))for technician in technicians]
+#         response = make_response(technicians_dict, 200)
+#     elif request.method == 'POST':
+#         form_data = request.get_json()
+#         print(form_data)
+#         # Check if the required fields are present in the request data
+#         if 'username' not in form_data or 'password' not in form_data:
+#             return jsonify({'error': 'Username and password are required'}), 400
+
+#         # Create a new Technician instance
+#         new_technician = Technician(username=form_data['username'], password_hash=form_data['password'])
+#         db.session.add(new_technician)
+#         db.session.commit()
+#         return jsonify(new_technician.to_dict()), 201
+#    return response
+
     
 #clients route base set up
 @app.route('/clients', methods=['GET', 'POST'])
@@ -105,28 +112,26 @@ def update_or_delete_pool_visit(visit_id):
             return jsonify({'error': str(e)}), 500
         
 #sign in page route
-@app.route('/signin', methods=['GET', 'POST'])
+@app.route('/signin', methods=['POST'])
 def signin():
-    if request.method == 'POST':
-        # Get the username and password from the form
-        username = request.form.get('username')
-        password = request.form.get('password')
+    data = request.get_json()
 
-        # Find the technician with the given username
-        technician = Technician.query.filter_by(username=username).first()
+    if 'username' not in data or 'password' not in data:
+        return jsonify({'error': 'Username and password are required'}), 400
 
-        # Check if the technician exists and the password is correct
-        if technician and technician.authenticate(password):
-            # Set a session variable to indicate that the user is logged in
-            session['user_id'] = technician.id
-            return redirect(url_for('dashboard'))  # Redirect to the dashboard or another page
+    username = data['username']
+    password = data['password']
 
+    # Find the technician with the given username
+    technician = Technician.query.filter_by(username=username).first()
+    print(data)
+    if technician and technician.authenticate(password):
+        # Set a session variable to indicate that the user is logged in
+        session['user_id'] = technician.id
+        return jsonify({'message': 'Login successful'}), 200
+    else:
         # If the username or password is incorrect, show an error message
-        error_message = 'Invalid username or password'
-        return render_template('signin.html', error_message=error_message)
-
-    # If it's a GET request, render the sign-in page
-    return render_template('signin.html')
+        return jsonify({'error': 'Invalid username or password'}), 401
 
     
 

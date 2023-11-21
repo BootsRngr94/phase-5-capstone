@@ -23,12 +23,17 @@ if __name__ == '__main__':
         print("Datsbase initializing...")
 
         print('Logging techs...')
-        technicians = [
-            Technician(username='MikeMike', password_hash='letsgetThisWIN'),
-            Technician(username='Lwest', password_hash='c0dingsGR8T'),
+        # technicians = [
+        #     Technician(username='MikeMike', password_hash='letsgetThisWIN'),
+        #     Technician(username='Lwest', password_hash='c0dingsGR8T'),
             
-        ]
-        db.session.add_all(technicians)
+        # ]
+        t1 = Technician(username='MikeMike')
+        t2 = Technician(username='Lwest')
+        t1.password_hash ='letsgetThisWIN'
+        t2.password_hash ='c0dingsGR8T'
+
+        db.session.add_all([t1,t2])
         db.session.commit()
 
         print('Setting up Clients...')

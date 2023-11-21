@@ -19,10 +19,10 @@ class Technician(db.Model, SerializerMixin):
     __tablename__='technicians'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String)
-    password = db.Column(db.String)
-    password_hash = db.Column(db.String)
+    # password = db.Column(db.String)
+    _password_hash = db.Column(db.String)
     #serialize rules and relationships below, is serialization nessecary? 
-    serialize_rules = ('-clients','-password')
+    serialize_rules = ('-clients','-password_hash')
 
     clients = db.relationship('Client', back_populates='technicians', lazy='dynamic')
     pool_visits = db.relationship('PoolVisit', back_populates='technicians', lazy='subquery', cascade='all, delete-orphan')
@@ -33,28 +33,28 @@ class Technician(db.Model, SerializerMixin):
             return username
         else: 
             raise ValueError('Username must contain a string!')
-    @validates('password')
-    def validate_password(self, key, password):
-        if type (password) == str:
-            return password
+    @validates('password_hash')
+    def validate_password(self, key, password_hash):
+        if type (password_hash) == str:
+            return password_hash
         else:
             raise ValueError('Password must conatin a string!')
     def __repr__(self):
         return f'<Technicians {self.id}: {self.username}>'
     
     @hybrid_property
-    def password(self):
+    def password_hash(self):
         raise AttributeError('Password is not readable.')
 
-    @password.setter
-    def password(self, plaintext_password):
-        self.password_hash = bcrypt.generate_password_hash(
+    @password_hash.setter
+    def password_hash(self, plaintext_password):
+        self._password_hash = bcrypt.generate_password_hash(
             plaintext_password.encode('utf-8')
         ).decode('utf-8')
 
     def authenticate(self, plaintext_password):
         return bcrypt.check_password_hash(
-            self.password_hash, plaintext_password.encode('utf-8')
+            self._password_hash, plaintext_password.encode('utf-8')
         )
 
 #With these changes, the password property is replaced with password_hash, and w
