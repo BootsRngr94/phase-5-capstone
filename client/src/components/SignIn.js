@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+
 
 const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoggedIn, setLoggedIn] = useState(false);
+
+  const history = useHistory();
 
   const handleSignIn = async () => {
     try {
-      const response = await fetch('http://your-api-url/signin', {
+      const response = await fetch('http://127.0.0.1:5555/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -18,8 +23,8 @@ const SignIn = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // Sign-in successful, you might want to redirect the user or perform some other action
         console.log('Login successful');
+        setLoggedIn(true);
       } else {
         // Sign-in failed, update the error state
         setError(data.error || 'Sign-in failed');
@@ -28,6 +33,13 @@ const SignIn = () => {
       console.error('Error during sign-in:', error);
     }
   };
+
+  // If already logged in, redirect to the Dashboard
+  useEffect(() => {
+    if (isLoggedIn) {
+      history.push('/dashboard');
+    }
+  }, [isLoggedIn, history]);
 
   return (
     <div>
