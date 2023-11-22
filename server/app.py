@@ -116,6 +116,7 @@ def update_or_delete_pool_visit(visit_id):
 
 @app.route('/signin', methods=['POST'])
 def signin():
+    print(session)
     data = request.get_json()
 
     if 'username' not in data or 'password' not in data:
@@ -130,6 +131,7 @@ def signin():
     if technician and technician.authenticate(password):
         # Set a session variable to indicate that the user is logged in
         session['user_id'] = technician.id
+        print(session)
         return jsonify({'message': 'Login successful'}), 200
     else:
         # If the username or password is incorrect, show an error message
@@ -140,14 +142,14 @@ def signin():
 #build out a check session, it's a get route.
 @app.route('/check_session', methods=['GET'])
 def check_session():
-    # Check if the user is logged in by verifying the user_id in the session
+    print(session)
     if 'user_id' in session:
         # Fetch user info
         user_id = session['user_id']
         technician = Technician.query.get(user_id)
         username = technician.username if technician else None
-
-        # Retrieve additional information using the updated helper functions
+        
+        # Retrieve additional information
         assigned_pools = get_assigned_pools(technician)
         related_client = get_related_client(technician)
 
@@ -158,8 +160,30 @@ def check_session():
             'assigned_pools': assigned_pools,
             'related_client': related_client
         }), 200
+        
     else:
         return jsonify({'logged_in': False}), 200
+        
+    # Check if the user is logged in by verifying the user_id in the session
+    # if 'user_id' in session:
+    #     # Fetch user info
+    #     user_id = session['user_id']
+    #     technician = Technician.query.get(user_id)
+    #     username = technician.username if technician else None
+
+    #     # Retrieve additional information using the updated helper functions
+    #     assigned_pools = get_assigned_pools(technician)
+    #     related_client = get_related_client(technician)
+
+    #     return jsonify({
+    #         'logged_in': True,
+    #         'user_id': user_id,
+    #         'username': username,
+    #         'assigned_pools': assigned_pools,
+    #         'related_client': related_client
+    #     }), 200
+    # else:
+    #     return jsonify({'logged_in': False}), 200
 
        
  
