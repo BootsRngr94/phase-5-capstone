@@ -33,7 +33,6 @@ const SignIn = () => {
       console.error('Error during sign-in:', error);
     }
   };
-
   // If already logged in, redirect to the Dashboard
   useEffect(() => {
     if (isLoggedIn) {

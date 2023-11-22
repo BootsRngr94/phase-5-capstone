@@ -3,7 +3,6 @@ from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import validates
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
-#from flask_bcrypt import Bcrypt
 from config import bcrypt, db
 from sqlalchemy.ext.hybrid import hybrid_property
 # metadata = MetaData(naming_convention={
@@ -14,19 +13,18 @@ from sqlalchemy.ext.hybrid import hybrid_property
 
 # Models go here!
 #Main models are Technician, Client, Pool, PoolVisit
-
+#<------------------------------------------------------------------Technician----------------------------------------------------------->
 class Technician(db.Model, SerializerMixin):
     __tablename__='technicians'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String)
-    # password = db.Column(db.String)
     _password_hash = db.Column(db.String)
-    #serialize rules and relationships below, is serialization nessecary? 
+    #serialize rules and relationships below
     serialize_rules = ('-clients','-password_hash')
 
     clients = db.relationship('Client', back_populates='technicians', lazy='dynamic')
     pool_visits = db.relationship('PoolVisit', back_populates='technicians', lazy='subquery', cascade='all, delete-orphan')
-    #validations
+    #<validations>
     @validates('username')
     def validate_username(self, key, username):
         if type (username) == str:
@@ -57,10 +55,7 @@ class Technician(db.Model, SerializerMixin):
             self._password_hash, plaintext_password.encode('utf-8')
         )
 
-#With these changes, the password property is replaced with password_hash, and w
-
-
-
+#<--------------------------------------------------------------Client---------------------------------------------------------->
 class Client(db.Model, SerializerMixin):
     __tablename__='clients'
     id = db.Column(db.Integer, primary_key=True)
@@ -75,6 +70,8 @@ class Client(db.Model, SerializerMixin):
     technicians = db.relationship('Technician', back_populates='clients', lazy='subquery')
     pools = db.relationship('Pool', back_populates='client', cascade='all, delete-orphan',)
 
+
+#<------------------------------------------------------------Pool-------------------------------------------------------------->
 class Pool(db.Model, SerializerMixin):
     __tablename__ = 'pools'
     id = db.Column(db.Integer, primary_key=True)
@@ -89,6 +86,7 @@ class Pool(db.Model, SerializerMixin):
     client = db.relationship('Client', back_populates='pools')
     pool_visits = db.relationship('PoolVisit', back_populates='pool', cascade='all, delete-orphan')
 
+#<-----------------------------------------------------------PoolVisit---------------------------------------------------------->
 class PoolVisit(db.Model, SerializerMixin):
     __tablename__ = 'pool_visits'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

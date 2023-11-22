@@ -7,6 +7,7 @@ from flask import request
 from flask_restful import Resource
 from flask_migrate import Migrate
 from flask import render_template, redirect, url_for, session
+from helpers import get_assigned_pools, get_related_client
 
 # Local imports
 from config import app, api
@@ -19,9 +20,7 @@ from models import db, Technician, Client, Pool, PoolVisit
 def index():
     return '<h1>This is the server</h1>'
 
-#model routes below
-
-#technicians route base setup
+#--------------------------------------------------------------------------------------------------------------------------------Technician Routes 
 @app.route('/technicians', methods=['GET'])
 def get_technicians():
     technicians = Technician.query.all()
@@ -49,7 +48,7 @@ def get_technicians():
 #    return response
 
     
-#clients route base set up
+#-----------------------------------------------------------------------------------------------------------------------------Clients Routes
 @app.route('/clients', methods=['GET', 'POST'])
 def clients():
     if request.method == 'GET':
@@ -61,6 +60,7 @@ def clients():
     #     print(form_data)
         return response
 
+#----------------------------------------------------------------------------------------------------------------------Pools Routes
 #pools route base set up
 @app.route('/pools', methods=['GET', 'POST'])
 def pools():
@@ -73,6 +73,7 @@ def pools():
     #     print(form_data)
         return response
     
+#-----------------------------------------------------------------------------------------------------PoolVisits Routes
 #pool_visits base route set up, needs PATCH included for user to change data
 @app.route('/pool_visits', methods=['POST'])
 def create_pool_visit():
@@ -111,7 +112,8 @@ def update_or_delete_pool_visit(visit_id):
         except Exception as e:
             return jsonify({'error': str(e)}), 500
         
-#sign in page route
+#--------------------------------------------------------------------------------------------------------------SignIn page route
+
 @app.route('/signin', methods=['POST'])
 def signin():
     data = request.get_json()
@@ -132,8 +134,35 @@ def signin():
     else:
         # If the username or password is incorrect, show an error message
         return jsonify({'error': 'Invalid username or password'}), 401
-
     
+#-----------------------------------------------------------------------------------------------Check session
 
+#build out a check session, it's a get route.
+@app.route('/check_session', methods=['GET'])
+def check_session():
+    # Check if the user is logged in by verifying the user_id in the session
+    if 'user_id' in session:
+        # Fetch user info
+        user_id = session['user_id']
+        technician = Technician.query.get(user_id)
+        username = technician.username if technician else None
+
+        # Retrieve additional information using the updated helper functions
+        assigned_pools = get_assigned_pools(technician)
+        related_client = get_related_client(technician)
+
+        return jsonify({
+            'logged_in': True,
+            'user_id': user_id,
+            'username': username,
+            'assigned_pools': assigned_pools,
+            'related_client': related_client
+        }), 200
+    else:
+        return jsonify({'logged_in': False}), 200
+
+       
+ 
+#<---------------------------------------------------------------------------------------------------------------------------->
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

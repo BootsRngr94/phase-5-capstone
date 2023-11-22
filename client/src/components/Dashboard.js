@@ -1,9 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import Navbar from './NavBar';
 
 const Dashboard = ({ username, onLogout }) => {
   const history = useHistory();
-
+  
   const handleLogout = () => {
     // Perform any necessary logout actions (clear session, redirect, etc.)
     onLogout();
@@ -12,11 +13,14 @@ const Dashboard = ({ username, onLogout }) => {
   };
 
   return (
-    <div>
-      <h2>Welcome, {username}!</h2>
-      <p>This is your Dashboard.</p>
-      {/* Add relevant information, summary statistics, or recent activities here */}
-      <button onClick={handleLogout}>Logout</button>
+<div>
+      <Navbar isLoggedIn={true} onLogout={handleLogout} /> {/* Pass appropriate props */}
+      <div>
+        <h2>Welcome, {username}!</h2>
+        <p>This is your Dashboard.</p>
+        {/* Going to add information, summary statistics, or recent activities eventually */}
+        <button onClick={handleLogout}>Logout</button>
+      </div>
     </div>
   );
 };
