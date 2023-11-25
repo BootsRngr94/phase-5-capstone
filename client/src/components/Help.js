@@ -2,20 +2,10 @@ import React, {useEffect}from 'react';
 import { useHistory } from 'react-router-dom';
 import Navbar from './NavBar';
 
-const Help = ({onLogout}) => {
-
-    const handleLogout = () => {
-        onLogout();
-        history.push('/signin');
-      };
-    const history = useHistory();
-    const handleNavigateBack = () => {
-        history.goBack();
-      };
-
+const Help = () => {
   return (
     <div>
-        <Navbar isLoggedIn={true} onLogout={handleLogout} />
+        <Navbar />
       <h2>Help Component</h2>
       {/* Add your Help component content */}
     </div>

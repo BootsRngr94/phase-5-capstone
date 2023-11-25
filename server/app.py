@@ -7,7 +7,7 @@ from flask import request
 from flask_restful import Resource
 from flask_migrate import Migrate
 from flask import render_template, redirect, url_for, session
-from helpers import get_assigned_pools, get_related_client
+from helpers import get_assigned_pools, get_related_clients
 
 # Local imports
 from config import app, api
@@ -151,7 +151,7 @@ def check_session():
         
         # Retrieve additional information
         assigned_pools = get_assigned_pools(technician)
-        related_client = get_related_client(technician)
+        related_client = get_related_clients(technician)
 
         return jsonify({
             'logged_in': True,

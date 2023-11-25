@@ -4,6 +4,8 @@ import SignIn from "./SignIn";
 import Dashboard from "./Dashboard";
 import Pool from "./Pool";
 import SessionChecker from "./SessionChecker";
+import Help from "./Help";
+import Client from "./Client"
 // import Navbar from "./NavBar";
 
 
@@ -34,8 +36,17 @@ const App = () => {
           )}
         />
         {/* <Redirect from="/" to="/signin" /> */}
-        <Route path="/check_session" component={SessionChecker} />
-        <Route path="/pool" component={Pool} />
+        <Route 
+        path="/check_session" component={SessionChecker} />
+        <Route 
+        path="/pool" component={Pool} 
+        />
+        <Route
+        path="/help" component={Help} 
+        />
+        <Route
+        path="/client" component={Client} 
+        />
       </Switch>
     </Router>
   );

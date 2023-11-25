@@ -1,28 +1,50 @@
-import React, {useEffect}from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import Navbar from './NavBar';
 
-const Client = ({onLogout}) => {
 
-    const handleLogout = () => {
-        onLogout();
-        history.push('/signin');
-      };
-    
+const Client = () => {
+  const [relatedClients, setRelatedClient] = useState([]);
 
-    const history = useHistory();
-    const handleNavigateBack = () => {
-        history.goBack();
-      };
+  useEffect(() => {
+    // Fetch assigned pools
+    fetch('/check_session', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        setRelatedClient(data.related_client || []);
+      })
+      .catch(error => {
+        console.error('Error fetching assigned pools:', error.message);
+      });
+  }, []);
 
   return (
     <div>
-        <Navbar isLoggedIn={true} onLogout={handleLogout} />
-      <h2>Client Component</h2>
-      {/* Add your Client component content */}
-      <button onClick={handleNavigateBack}>Go Back</button>
+      <Navbar />
+      <h2>Client Info</h2>
+      <h3>Related Clients:</h3>
+    <ul>
+      {relatedClients.map(client => (
+        <li key={client.id}>
+          {/* Render client details here */}
+          <p>Name: {client.name}</p>
+          <p>Email: {client.email}</p>
+          {/* Add more client details as needed */}
+        </li>
+      ))}
+    </ul>
     </div>
   );
 };
 
-export default Client
+export default Client;
