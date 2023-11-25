@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Navbar from './NavBar';
 import SessionChecker from './SessionChecker';
@@ -15,8 +15,8 @@ const Dashboard = ({ onLogout }) => {
     <div>
       <Navbar isLoggedIn={true} onLogout={handleLogout} />
       <div>
-        <h2>Welcome!</h2>
-        <SessionChecker />
+        {/* <h2>Welcome!</h2> */}
+        <SessionChecker onLogout={handleLogout}/>
         <p>This is your Dashboard.</p>
         <button onClick={handleLogout}>Logout</button>
       </div>

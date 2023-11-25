@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import SignIn from "./SignIn";
 import Dashboard from "./Dashboard";
-import Navbar from "./NavBar";
+import Pool from "./Pool";
+import SessionChecker from "./SessionChecker";
+// import Navbar from "./NavBar";
 
 
 const App = () => {
@@ -31,7 +33,9 @@ const App = () => {
             <Dashboard {...props} isLoggedIn={isLoggedIn} onLogout={handleLogout} />
           )}
         />
-        <Redirect from="/" to="/signin" />
+        {/* <Redirect from="/" to="/signin" /> */}
+        <Route path="/check_session" component={SessionChecker} />
+        <Route path="/pool" component={Pool} />
       </Switch>
     </Router>
   );

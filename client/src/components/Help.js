@@ -2,14 +2,12 @@ import React, {useEffect}from 'react';
 import { useHistory } from 'react-router-dom';
 import Navbar from './NavBar';
 
-const Client = ({onLogout}) => {
+const Help = ({onLogout}) => {
 
     const handleLogout = () => {
         onLogout();
         history.push('/signin');
       };
-    
-
     const history = useHistory();
     const handleNavigateBack = () => {
         history.goBack();
@@ -18,11 +16,10 @@ const Client = ({onLogout}) => {
   return (
     <div>
         <Navbar isLoggedIn={true} onLogout={handleLogout} />
-      <h2>Client Component</h2>
-      {/* Add your Client component content */}
-      <button onClick={handleNavigateBack}>Go Back</button>
+      <h2>Help Component</h2>
+      {/* Add your Help component content */}
     </div>
   );
 };
 
-export default Client
+export default Help
