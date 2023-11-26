@@ -39,6 +39,9 @@ const Client = () => {
           {/* Render client details here */}
           <p>Name: {client.name}</p>
           <p>Email: {client.email}</p>
+          <p>Phone: {client.phone}</p>
+          {/* ask tyler about this, data base wouldn't update once I made the correct chagnes */}
+          <p>Address: </p>
           {/* Add more client details as needed */}
         </li>
       ))}

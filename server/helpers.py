@@ -1,3 +1,10 @@
+def get_pool_visits(technician):
+    if technician:
+        pool_visits = [visit.to_dict() for visit in technician.pool_visits]
+        return pool_visits
+    else:
+        return []
+
 def get_assigned_pools(technician):
     # Implement logic to retrieve assigned pools for the technician
     if technician:

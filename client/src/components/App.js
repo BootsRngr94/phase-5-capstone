@@ -6,6 +6,7 @@ import Pool from "./Pool";
 import SessionChecker from "./SessionChecker";
 import Help from "./Help";
 import Client from "./Client"
+import PoolVisit from "./PoolVisit";
 // import Navbar from "./NavBar";
 
 
@@ -46,6 +47,9 @@ const App = () => {
         />
         <Route
         path="/client" component={Client} 
+        />
+        <Route
+        path="/poolvisit" component={PoolVisit} 
         />
       </Switch>
     </Router>

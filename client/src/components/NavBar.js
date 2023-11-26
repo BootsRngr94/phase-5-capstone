@@ -17,6 +17,9 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
         <li>
           <Link to="/help">App Help</Link>
         </li>
+        <li>
+          <Link to="/poolvisit">Pool Visit</Link>
+        </li>
         {/* {isLoggedIn ? (
           <li>
             <button onClick={onLogout}>Logout</button>

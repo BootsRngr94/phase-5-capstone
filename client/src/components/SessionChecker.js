@@ -4,6 +4,7 @@ const SessionChecker = ({ onLogout }) => {
   const [username, setUsername] = useState(null);
   const [assignedPools, setAssignedPools] = useState(null);
   const [relatedClients, setRelatedClient] = useState([]);
+  const [poolVisits, setPoolVisits] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,6 +27,7 @@ const SessionChecker = ({ onLogout }) => {
         setUsername(data.username || 'Unknown');
         setAssignedPools(data.assigned_pools || []);
         setRelatedClient(data.related_client || []);
+        setPoolVisits(data.pool_visits || []);
       })
       .catch(error => {
         console.error('Error checking session:', error.message);

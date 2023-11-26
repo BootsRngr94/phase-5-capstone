@@ -103,3 +103,13 @@ class PoolVisit(db.Model, SerializerMixin):
     
     pools_id = db.Column(db.Integer, db.ForeignKey('pools.id'))
     pool = db.relationship('Pool', back_populates='pool_visits')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'visits_notes': self.visits_notes,
+            'visits_FILTER_PSI': self.visits_FILTER_PSI,
+            'visits_PH_record': self.visits_PH_record,
+            'visits_CHL_record': self.visits_CHL_record,
+            'visits_CHEMS_USED_record': self.visits_CHEMS_USED_record,
+        }

@@ -7,7 +7,7 @@ from flask import request
 from flask_restful import Resource
 from flask_migrate import Migrate
 from flask import render_template, redirect, url_for, session
-from helpers import get_assigned_pools, get_related_clients
+from helpers import get_assigned_pools, get_related_clients, get_pool_visits
 
 # Local imports
 from config import app, api
@@ -27,27 +27,7 @@ def get_technicians():
     technicians_dict = [technician.to_dict(rules=('-technicians',)) for technician in technicians]
     response = make_response(technicians_dict, 200)
     return response
-# @app.route('/technicians', methods=['GET', 'POST'])
-# def technicians():
-#     if request.method == 'GET':
-#         technicians = Technician.query.all()
-#         technicians_dict = [technician.to_dict(rules=('-technicians',))for technician in technicians]
-#         response = make_response(technicians_dict, 200)
-#     elif request.method == 'POST':
-#         form_data = request.get_json()
-#         print(form_data)
-#         # Check if the required fields are present in the request data
-#         if 'username' not in form_data or 'password' not in form_data:
-#             return jsonify({'error': 'Username and password are required'}), 400
 
-#         # Create a new Technician instance
-#         new_technician = Technician(username=form_data['username'], password_hash=form_data['password'])
-#         db.session.add(new_technician)
-#         db.session.commit()
-#         return jsonify(new_technician.to_dict()), 201
-#    return response
-
-    
 #-----------------------------------------------------------------------------------------------------------------------------Clients Routes
 @app.route('/clients', methods=['GET', 'POST'])
 def clients():
@@ -152,40 +132,20 @@ def check_session():
         # Retrieve additional information
         assigned_pools = get_assigned_pools(technician)
         related_client = get_related_clients(technician)
+        pool_visits = get_pool_visits(technician)
 
         return jsonify({
             'logged_in': True,
             'user_id': user_id,
             'username': username,
             'assigned_pools': assigned_pools,
-            'related_client': related_client
+            'related_client': related_client,
+            'pool_visits': pool_visits
         }), 200
         
     else:
         return jsonify({'logged_in': False}), 200
-        
-    # Check if the user is logged in by verifying the user_id in the session
-    # if 'user_id' in session:
-    #     # Fetch user info
-    #     user_id = session['user_id']
-    #     technician = Technician.query.get(user_id)
-    #     username = technician.username if technician else None
-
-    #     # Retrieve additional information using the updated helper functions
-    #     assigned_pools = get_assigned_pools(technician)
-    #     related_client = get_related_client(technician)
-
-    #     return jsonify({
-    #         'logged_in': True,
-    #         'user_id': user_id,
-    #         'username': username,
-    #         'assigned_pools': assigned_pools,
-    #         'related_client': related_client
-    #     }), 200
-    # else:
-    #     return jsonify({'logged_in': False}), 200
-
-       
+    
  
 #<---------------------------------------------------------------------------------------------------------------------------->
 if __name__ == '__main__':
