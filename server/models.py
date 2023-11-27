@@ -62,6 +62,7 @@ class Client(db.Model, SerializerMixin):
     name = db.Column(db.String)
     phone = db.Column(db.String)
     email = db.Column(db.String)
+    address = db.Column(db.String)
     #foreignkey
     technicians_id = db.Column(db.Integer, db.ForeignKey('technicians.id'))
     #serialize_rules

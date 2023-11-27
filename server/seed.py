@@ -38,12 +38,12 @@ if __name__ == '__main__':
 
         print('Setting up Clients...')
         clients = [
-            Client(name='Greg', phone='832-100-0000', email='gregH@gmail.com', technicians_id=1),
-            Client(name='Pam', phone='832-500-0000', email='pamL@gmail.com', technicians_id=1),
-            Client(name='Charles', phone='832-800-0000', email='charlesH@gmail.com', technicians_id=1),
-            Client(name='Heul', phone='832-600-0000', email='heulJ@gmail.com', technicians_id=2),
-            Client(name='Carlos', phone='832-400-0000', email='carlosV@gmail.com', technicians_id=2),
-            Client(name='Selvester', phone='832-200-0000', email='selvesterB@gmail.com', technicians_id=2),
+            Client(name='Greg', phone='832-100-0000', email='gregH@gmail.com', address='2010 palmeto ct', technicians_id=1),
+            Client(name='Pam', phone='832-500-0000', email='pamL@gmail.com', address='2040 gulfcreek', technicians_id=1),
+            Client(name='Charles', phone='832-800-0000', email='charlesH@gmail.com', address='1050 hillcroft ln',technicians_id=1),
+            Client(name='Heul', phone='832-600-0000', email='heulJ@gmail.com', address='0501 greenfern ct',technicians_id=2),
+            Client(name='Carlos', phone='832-400-0000', email='carlosV@gmail.com', address='068 beachnut st',technicians_id=2),
+            Client(name='Selvester', phone='832-200-0000', email='selvesterB@gmail.com', address='2040 palmeto ct',technicians_id=2),
             
 
         ]
