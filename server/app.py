@@ -33,12 +33,19 @@ def get_technicians():
 def clients():
     if request.method == 'GET':
         clients = Client.query.all()
-        clients_dict = [client.to_dict(rules=('-clients',))for client in clients]
-        response = make_response(clients_dict, 200)
-    # elif request.method == 'POST':
-    #     form_data = request.get_json()
-    #     print(form_data)
-        return response
+        clients_dict = [client.to_dict(rules=('-clients',)) for client in clients]
+        response = make_response(jsonify(clients_dict), 200)
+    elif request.method == 'POST':
+        try:
+            form_data = request.get_json()
+            new_client = Client(**form_data)
+            db.session.add(new_client)
+            db.session.commit()
+            response = make_response(jsonify(new_client.to_dict(rules=('-clients',))), 201)
+        except Exception as e:
+            response = make_response(jsonify({'error': str(e)}), 400)
+
+    return response
 
 #----------------------------------------------------------------------------------------------------------------------Pools Routes
 #pools route base set up
@@ -48,10 +55,20 @@ def pools():
         pools = Pool.query.all()
         pools_dict = [pool.to_dict(rules=('-pools',))for pool in pools]
         response = make_response(pools_dict, 200)
-    # elif request.method == 'POST':
-    #     form_data = request.get_json()
-    #     print(form_data)
-        return response
+    elif request.method == 'POST':
+        try:
+            print("poop")
+            form_data = request.get_json()
+            print(form_data)
+            new_pool = Pool(**form_data)
+            print (new_pool)
+            db.session.add(new_pool)
+            db.session.commit()
+            response = make_response(jsonify(new_pool.to_dict(rules=('-pools',))), 201)
+        except Exception as e:
+            response = make_response(jsonify({'error': str(e)}), 400)
+
+    return response
     
 #-----------------------------------------------------------------------------------------------------PoolVisits Routes
 #pool_visits base route set up, needs PATCH included for user to change data
@@ -67,14 +84,18 @@ def create_pool_visit():
         except Exception as e:
             return jsonify({'error': str(e)}), 400
 
-@app.route('/pool_visits/<int:visit_id>', methods=['PATCH', 'DELETE'])
-def update_or_delete_pool_visit(visit_id):
+@app.route('/pool_visits/<int:visit_id>', methods=['GET', 'PATCH', 'DELETE'])
+def get_update_or_delete_pool_visit(visit_id):
     pool_visit = PoolVisit.query.get(visit_id)
 
     if not pool_visit:
         return jsonify({'error': 'Pool visit not found'}), 404
 
-    if request.method == 'PATCH':
+    if request.method == 'GET':
+        # Handle GET request to retrieve pool visit data
+        return jsonify(pool_visit.to_dict()), 200
+
+    elif request.method == 'PATCH':
         try:
             data = request.get_json()
             for key, value in data.items():
@@ -91,7 +112,8 @@ def update_or_delete_pool_visit(visit_id):
             return jsonify({'message': 'Pool visit deleted successfully'}), 200
         except Exception as e:
             return jsonify({'error': str(e)}), 500
-        
+
+
 #--------------------------------------------------------------------------------------------------------------SignIn page route
 
 @app.route('/signin', methods=['POST'])
@@ -133,7 +155,7 @@ def check_session():
         assigned_pools = get_assigned_pools(technician)
         related_client = get_related_clients(technician)
         pool_visits = get_pool_visits(technician)
-
+        
         return jsonify({
             'logged_in': True,
             'user_id': user_id,

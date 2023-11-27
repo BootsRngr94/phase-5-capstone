@@ -20,7 +20,11 @@ const App = () => {
   const handleLogout = () => {
     setLoggedIn(false);
   };
-
+  // if(!isLoggedIn){
+  //   return(
+  //     <SignIn isLoggedIn={isLoggedIn} onLogin={handleLogin} />
+  //   )
+  // }
   return (
     <Router>
       <Switch>

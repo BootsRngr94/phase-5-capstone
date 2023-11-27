@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './NavBar';
-
+import NewClientForm from './NewClientForm.js';
 
 const Client = () => {
   const [relatedClients, setRelatedClient] = useState([]);
+  const [clients, setClients] = useState([]);
+  const addNewClient = (newClient) => {
+    // Add the new client to the state
+    setClients(prevClients => [...prevClients, newClient]);
+  };
 
   useEffect(() => {
     // Fetch assigned pools
@@ -40,12 +45,23 @@ const Client = () => {
           <p>Name: {client.name}</p>
           <p>Email: {client.email}</p>
           <p>Phone: {client.phone}</p>
-          {/* ask tyler about this, data base wouldn't update once I made the correct chagnes */}
-          <p>Address: </p>
-          {/* Add more client details as needed */}
+          <p>Address: {client.address}</p>
         </li>
       ))}
+      {clients.map(client => (
+      <li key={client.id}>
+        {/* Render client details here */}
+        <p>Name: {client.name}</p>
+          <p>Email: {client.email}</p>
+          <p>Phone: {client.phone}</p>
+          <p>Address: {client.address}</p>
+      </li>
+      ))}
     </ul>
+    <div>
+      <NewClientForm addNewClient={addNewClient} />
+    </div>
+      
     </div>
   );
 };

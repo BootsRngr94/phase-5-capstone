@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './NavBar';
+import NewPoolForm from './NewPoolForm';
+
 const Pool = () => {
   const [assignedPools, setAssignedPools] = useState([]);
+  const [pools, setPools] = useState([]);
+  const addNewPool = (newPool) => {
+    // Add the new pool to the state
+    setPools(prevPools => [...prevPools, newPool]);
+  };
 
   useEffect(() => {
     // Fetch assigned pools
@@ -38,67 +45,19 @@ const Pool = () => {
               {pool.pools_location} - {pool.pools_size}
             </li>
           ))}
+          {pools.map(pool => (
+          <li key={pool.id}>
+            <p>Pool Location: {pool.pools_location}</p>
+            <p>Pool Size: {pool.pools_size}</p>
+            <p>Pool Condition: {pool.pools_condition_last_check}</p>
+          </li>
+          ))}
         </ul>
       </div>
-      {/* other pool content */}
+      <NewPoolForm addNewPool={addNewPool} />
     </div>
   );
 };
 
 export default Pool;
 
-// import React from 'react';
-// import { useHistory } from 'react-router-dom';
-// import Navbar from './NavBar';
-// import SessionChecker from './SessionChecker';
-// const Pool = ({ assignedPools },{onLogout}) => {
-// const handleLogout = () => {
-//     onLogout();
-//     history.push('/signin');
-//     };
-
-//   const history = useHistory();
-//   const handleNavigateBack = () => {
-//     history.goBack();
-//   };
-
-
-    
-//   return (
-//     <div>
-//         <Navbar isLoggedIn={true} onLogout={handleLogout}/>
-//       <h2>Pool Component</h2>
-//       <div>
-//         <h3>Assigned Pools:</h3>
-//         <ul>
-//           {assignedPools.map(pool => (
-//             <li key={pool.id}>
-//               {pool.pools_location} - {pool.pools_size}
-//             </li>
-//           ))}
-//         </ul>
-//       </div>
-//       {/* other pool content */}
-//     </div>
-//   );
-// };
-
-// export default Pool;
-
-
-
-
-// const Pool = () => {
-
-
-//   return (
-//     <div>
-        
-//       <h2>Pool Component</h2>
-//       {/* Your Pool component content here */}
-//       <button onClick={handleNavigateBack}>Go Back</button>
-//     </div>
-//   );
-// };
-
-// export default Pool;
