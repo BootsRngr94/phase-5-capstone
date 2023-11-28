@@ -42,7 +42,7 @@ const Dashboard = ({ onLogout }) => {
       <div>
         <h2>Welcome, {username}!</h2>
         <p>This is your Dashboard.</p>
-        <button onClick={handleLogout}>Logout</button>
+        {/* <button onClick={handleLogout}>Logout</button> */}
       </div>
     </div>
   );
