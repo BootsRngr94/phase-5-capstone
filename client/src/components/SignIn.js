@@ -41,9 +41,10 @@ const SignIn = () => {
   }, [isLoggedIn, history]);
 
   return (
-    <div className='sign_in'>
-      <h2>Sign In</h2>
+    <div >
+      
       <form className='signinForm'>
+        <h2>Sign In</h2>
         <label>
           Username:
           <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />

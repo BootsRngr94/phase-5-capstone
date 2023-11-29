@@ -1,55 +1,134 @@
-/*  navigation bar */
+/* Default styles */
+
+/* Main navbar styling */
 .main_nav {
-    background-color: #333;
-    
-  }
+  background-color: #333;
+  display: flex;
+  border: 2px solid #333;
   
-  .link_list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    align-content: center;
-    display: flex; /* Use flexbox for layout */
-    justify-content: center;
-    width: 100%;
-  }
-  
-  .link {
-    display: inline-block;
-    margin-right: 140px;
-    max-width: auto;
-  }
-  
-  .link a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  
-  .link a:hover {
-    background-color: #111; /* Set your desired hover background color */
 }
 
-/* Log Out Button Separate styling */
-.log_out {
-    background-color: #ff4500; 
-    border: 1px solid #cc3700; 
-    margin-top: 15px;
-  }
+.link_list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  align-content: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 
-/* sign in button and form  */
-.sign_in{
+.link {
+  display: inline-block;
+  margin-right: 140px;
+  max-width: auto;
+}
+
+.link a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.link a:hover {
+  background-color: #8b8686;
+}
+/* -------------------------------- */
+/* Log out button styling */
+.log_out {
+  background-color: #ff4500;
+  border: 1px solid #cc3700;
+  margin-top: 15px;
+  display: flex;
+}
+/* signin form */
+.signinForm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 20px;
+  border: 2px solid #333;
+  border-radius: 10px;
+  background-color: rgba(18, 148, 42, 0.207);
+}
+/* welcome message from dashboard styling */
+.welcome {
+  text-align: center;
+}
+
+/* Daily route container styling also add pool form styling */
+.dailyContainer{
+  background-color: rgba(18, 148, 42, 0.207);
+  border: 2px solid #333;
+  border-radius: 10px;
+  width: 20%;
+  
+  margin: 0;
+  
+  text-align: center;
+  
+}
+.poolformContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 10px;
+  border: 2px solid #333;
+  border-radius: 10px;
+  background-color: rgba(18, 148, 42, 0.207);
+}
+.poolForm {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin-left: 500px;
 }
-.signinForm{
-  text-align: center;
+.poolForm input {
+  margin-bottom: 10px; /* Add space between inputs */
+}
+/* ----------------------------------------------------------------- */
 
+.clientFormContainer{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 10px;
+  border: 2px solid #333;
+  border-radius: 10px;
+  background-color: rgba(18, 148, 42, 0.207);
 }
+.clientForm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+  .link {
+    margin-right: 20px; /* Adjust margin for smaller screens */
+  }
+
+  .signinForm {
+    width: 80%; /* Adjust width for smaller screens */
+  }
+  .main_nav {
+    /* Add adjustments for smaller screens */
+    flex-direction: column; /* Stack items vertically */
+  }
+  .log_out{
+    flex-direction: column;
+  }
+}
+
+

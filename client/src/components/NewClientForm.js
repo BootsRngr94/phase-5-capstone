@@ -36,9 +36,9 @@ const NewClientForm = ({ addNewClient, clients }) => {
   };
 
   return (
-    <div className="formContainer">
+    <div className='clientFormContainer'>
       <h3>New Client</h3>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='clientForm'>
         <input
           type="text"
           name="name"
@@ -67,7 +67,7 @@ const NewClientForm = ({ addNewClient, clients }) => {
           value={formData.address}
           onChange={handleInputChange}
         />
-        <button type="submit">Add New Client</button>
+        <button type="submit">Submit New Client</button>
       </form>
     </div>
   );

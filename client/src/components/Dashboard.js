@@ -39,10 +39,10 @@ const Dashboard = ({ onLogout }) => {
   return (
     <div>
       <Navbar isLoggedIn={true} onLogout={handleLogout} />
-      <div>
-        <h2>Welcome, {username}!</h2>
-        <p>This is your Dashboard.</p>
-        {/* <button onClick={handleLogout}>Logout</button> */}
+      <div className='welcome'>
+        <h1>Welcome, {username}!</h1>
+        <p>This is your Dashboard. Normally you'd be able to clock in and out from here but this is a work in progress!</p>
+        <p>Above are navigation links, I suggest clicking the help page for infomation on properly using the app!</p>
       </div>
     </div>
   );

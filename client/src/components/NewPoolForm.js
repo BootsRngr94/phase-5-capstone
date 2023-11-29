@@ -35,9 +35,9 @@ const NewPoolForm = ({ addNewPool, clients }) => {
   };
 
   return (
-    <div className="formContainer">
-      <h3>New Pool</h3>
-      <form onSubmit={handleSubmit}>
+    <div className="poolformContainer">
+      <h3>Add a new pool here:</h3>
+      <form onSubmit={handleSubmit} className='poolForm'>
         <input
           type="text"
           name="pools_location"
@@ -59,7 +59,7 @@ const NewPoolForm = ({ addNewPool, clients }) => {
           value={formData.pools_condition_last_check}
           onChange={handleInputChange}
         />
-        <button type="submit">Add New Pool</button>
+        <button type="submit">Submit New Pool</button>
       </form>
     </div>
   );

@@ -1,12 +1,18 @@
-
-
-.lightmode{
-    width: 50px;
-    height: 50px;
-    background-color: white;
+.lightmode,
+.darkmode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  background-color: transparent; /* Remove background color from here */
 }
-.darkmode{
-    width: 50px;
-    height: 50px;
-    background-color: black;
+
+/* Apply the background color separately */
+.lightmode {
+  background-color: rgb(255, 255, 255);
+}
+
+.darkmode {
+  background-color: black;
 }

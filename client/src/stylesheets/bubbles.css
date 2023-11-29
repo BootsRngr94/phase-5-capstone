@@ -1,8 +1,25 @@
+
+
 body {
     margin: 0;
     padding: 0;
     overflow: hidden;
     width: 100%;
+  }
+  body.dark-mode {
+    background-color: #222; /* Set your desired dark mode background color */
+  }
+  
+  .wrapper.dark-mode {
+    background: linear-gradient(180deg, #111, 5%, #030423);
+  }
+  
+  .wrapper.dark-mode h1 {
+    color: #fff; /* Set your desired dark mode text color */
+  }
+  
+  .wrapper.dark-mode div {
+    border-color: rgba(255, 255, 255, 0.7); /* Set your desired dark mode border color */
   }
   .wrapper {
     height: 100%;

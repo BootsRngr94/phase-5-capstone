@@ -1,13 +1,15 @@
+/* Dark mode */
 .app.dark{
-    /* background-color: #222; */
-    color: white;
+    
+    color: rgb(255, 255, 255);
     display: flex-start;
     height: 100vh;
 
 }
+/*  light mode */
 .app{
     display: flex;
     /* background-color: white; */
-    color: black;
+    color: rgb(0, 0, 0)
 
 }

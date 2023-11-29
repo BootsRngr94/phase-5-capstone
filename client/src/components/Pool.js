@@ -34,28 +34,30 @@ const Pool = () => {
   }, []);
 
   return (
-    <div>
-      <Navbar/>
-      <h2>Daily Route</h2>
-      <div>
-        <h3>Assigned Pools:</h3>
-        <ul>
-          {assignedPools.map(pool => (
-            <li key={pool.id}>
-              {pool.pools_location} - {pool.pools_size}
-            </li>
-          ))}
-          {pools.map(pool => (
-          <li key={pool.id}>
-            <p>Pool Location: {pool.pools_location}</p>
-            <p>Pool Size: {pool.pools_size}</p>
-            <p>Pool Condition: {pool.pools_condition_last_check}</p>
-          </li>
-          ))}
-        </ul>
-      </div>
-      <NewPoolForm addNewPool={addNewPool} />
-    </div>
+  <div>
+  <Navbar />
+  <div className='dailyContainer'>
+  <h2>Daily Route</h2>
+    <h3>Assigned Pools:</h3>
+    <ul>
+      {assignedPools.map((pool) => (
+        <li key={pool.id}>
+          {pool.pools_location} - {pool.pools_size} - {pool.pools_condition_last_check}
+        </li>
+      ))}
+      {pools.map((pool) => (
+        <li key={pool.id}>
+          <div>
+            {pool.pools_location} -
+            {pool.pools_size} -
+            {pool.pools_condition_last_check}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+  <NewPoolForm addNewPool={addNewPool} />
+</div>
   );
 };
 
