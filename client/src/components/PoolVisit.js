@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './NavBar';
 import PoolVisitUpdateForm from './PoolVisitUpdateForm';
-
+import mylogo from '../stylesheets/mylogo.png';
 const PoolVisit = () => {
   const [poolVisits, setPoolVisits] = useState([]);
   const [selectedPoolVisitId, setSelectedPoolVisitId] = useState(null);
@@ -77,6 +77,8 @@ const PoolVisit = () => {
   return (
     <div>
       <Navbar />
+      <img src={mylogo} alt="app logo" className='mylogo'/>
+      <div className='visitContainer'>
       <h2>Pool Visits</h2>
       <div>
         <h3>Previous Recordings:</h3>
@@ -96,9 +98,6 @@ const PoolVisit = () => {
               <button onClick={() => handleDeleteClick(poolvisit.id)}>Delete Pool Visit</button>
 
               {/* Display the update form for the selected pool visit */}
-              {/* {selectedPoolVisitId === poolvisit.id && (
-                <PoolVisitUpdateForm poolVisitId={poolvisit.id} />
-              )} */}
               {selectedPoolVisitId && (
                 <PoolVisitUpdateForm
                   poolVisitId={selectedPoolVisitId}
@@ -110,8 +109,8 @@ const PoolVisit = () => {
             </li>
           ))}
         </ul>
+        </div>
       </div>
-      {/* other pool content */}
     </div>
   );
 };

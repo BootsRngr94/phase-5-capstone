@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './NavBar';
 import NewPoolForm from './NewPoolForm';
-
+import mylogo from '../stylesheets/mylogo.png';
 const Pool = () => {
   const [assignedPools, setAssignedPools] = useState([]);
   const [pools, setPools] = useState([]);
@@ -36,6 +36,7 @@ const Pool = () => {
   return (
   <div>
   <Navbar />
+  <img src={mylogo} alt="app logo" className='mylogo'/>
   <div className='dailyContainer'>
   <h2>Daily Route</h2>
     <h3>Assigned Pools:</h3>

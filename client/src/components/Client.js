@@ -34,14 +34,15 @@ const Client = () => {
   }, []);
 
   return (
+    
     <div>
       <Navbar />
+      <div className='clientContainer'>
       <h2>Client Info</h2>
-      <h3>Related Clients:</h3>
+      <h3>Assigned Clients:</h3>
     <ul>
       {relatedClients.map(client => (
         <li key={client.id}>
-          {/* Render client details here */}
           <p>Name: {client.name}</p>
           <p>Email: {client.email}</p>
           <p>Phone: {client.phone}</p>
@@ -50,7 +51,6 @@ const Client = () => {
       ))}
       {clients.map(client => (
       <li key={client.id}>
-        {/* Render client details here */}
         <p>Name: {client.name}</p>
           <p>Email: {client.email}</p>
           <p>Phone: {client.phone}</p>
@@ -58,10 +58,8 @@ const Client = () => {
       </li>
       ))}
     </ul>
-    <div>
-      <NewClientForm addNewClient={addNewClient} />
     </div>
-      
+      <NewClientForm addNewClient={addNewClient} />
     </div>
   );
 };

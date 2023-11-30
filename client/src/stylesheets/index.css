@@ -1,11 +1,22 @@
-/* Default styles */
+body{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.mylogo{
+  opacity: 0.7;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 20px;
+  z-index: -1;
+  
+}
 
 /* Main navbar styling */
-.main_nav {
-  background-color: #333;
-  display: flex;
-  border: 2px solid #333;
-  
+.navbar {
+ background: #cc3232af;
+ 
 }
 
 .link_list {
@@ -93,7 +104,7 @@
   margin-bottom: 10px; /* Add space between inputs */
 }
 /* ----------------------------------------------------------------- */
-
+/* Client page styles */
 .clientFormContainer{
   position: absolute;
   top: 50%;
@@ -110,9 +121,35 @@
   flex-direction: column;
   align-items: center;
 }
+.clientContainer{
+  background-color: rgba(18, 148, 42, 0.207);
+  border: 2px solid #333;
+  border-radius: 10px;
+  width: 20%;
+  
+  margin: 0;
+  
+  text-align: center;
+}
+/* ---------------------------------------------------------------------- */
+/* Pool Visit Page Styles */
+.visitContainer{
+  background-color: rgba(18, 148, 42, 0.207);
+  border: 2px solid #333;
+  border-radius: 10px;
+}
 
+/* Help Page */
+.help_container{
+  background-color: rgba(18, 148, 42, 0.207);
+  border: 2px solid #333;
+  border-radius: 10px;
+  margin: 0;
 
-
+}
+.help_title{
+  text-align: center;
+}
 /* Media query for smaller screens */
 @media screen and (max-width: 768px) {
   .link {

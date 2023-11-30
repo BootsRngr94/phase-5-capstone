@@ -13,6 +13,7 @@ import "../stylesheets/dark.css";
 import "../stylesheets/app.css";
 import "../stylesheets/bubbles.css";
 import "../stylesheets/index.css";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 const App = () => {

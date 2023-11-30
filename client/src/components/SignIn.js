@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-
+import mylogo from '../stylesheets/mylogo.png';
 
 const SignIn = () => {
   const [username, setUsername] = useState('');
@@ -41,8 +41,8 @@ const SignIn = () => {
   }, [isLoggedIn, history]);
 
   return (
-    <div >
-      
+    <div>
+      <img src={mylogo} alt="app logo" className='mylogo'/>
       <form className='signinForm'>
         <h2>Sign In</h2>
         <label>
@@ -60,6 +60,9 @@ const SignIn = () => {
         </button>
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </form>
+   
+      
+     
     </div>
   );
 };

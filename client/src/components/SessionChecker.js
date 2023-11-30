@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 const SessionChecker = ({ onLogout }) => {
-  const [username, setUsername] = useState(null);
-  const [assignedPools, setAssignedPools] = useState(null);
-  const [relatedClients, setRelatedClient] = useState([]);
-  const [poolVisits, setPoolVisits] = useState(null);
+  const [, setUsername] = useState(null);
+  const [, setAssignedPools] = useState(null);
+  const [, setRelatedClient] = useState([]);
+  const [ , setPoolVisits] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 /* Dark mode */
 .app.dark{
-    
-    color: rgb(255, 255, 255);
+    /* text color */
+    color: rgb(232, 232, 4);
     display: flex-start;
     height: 100vh;
 

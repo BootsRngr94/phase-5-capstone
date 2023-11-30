@@ -6,17 +6,18 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
   const { darkMode } = useContext(DarkModeContext);
 
   const navbarStyle = {
-// Dark Mode : Light Mode
     backgroundColor: darkMode ? '#444' : '#fff',
-    
   };
   const linkStyle = {
-    color: darkMode ? '#fcfc0a' : '#400', 
+    color: darkMode ? '#fcfc0a' : '#000000', 
     textDecoration: 'none',
   };
 
   return (
-    <nav className='main_nav' style={navbarStyle}>
+    <div className='navbar' style={navbarStyle}>
+
+      <div> 
+    <nav>
       <ul className='link_list'>
         <li className='link'>
           <Link to="/dashboard" style={linkStyle}>Dashboard</Link>
@@ -38,6 +39,8 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
           </li>
       </ul>
     </nav>
+   </div>
+   </div>
   );
 };
 

@@ -5,7 +5,7 @@
   justify-content: center;
   width: 25px;
   height: 25px;
-  background-color: transparent; /* Remove background color from here */
+  background-color: transparent;
 }
 
 /* Apply the background color separately */

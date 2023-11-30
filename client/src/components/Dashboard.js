@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import Navbar from './NavBar';
-// import SessionChecker from './SessionChecker';
+import mylogo from '../stylesheets/mylogo.png';
+
 
 const Dashboard = ({ onLogout }) => {
   const history = useHistory();
@@ -39,7 +40,11 @@ const Dashboard = ({ onLogout }) => {
   return (
     <div>
       <Navbar isLoggedIn={true} onLogout={handleLogout} />
+      <div>
+      <img src={mylogo} alt="app logo" className='mylogo'/>
+      </div>
       <div className='welcome'>
+        
         <h1>Welcome, {username}!</h1>
         <p>This is your Dashboard. Normally you'd be able to clock in and out from here but this is a work in progress!</p>
         <p>Above are navigation links, I suggest clicking the help page for infomation on properly using the app!</p>
