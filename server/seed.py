@@ -23,11 +23,7 @@ if __name__ == '__main__':
         print("Datsbase initializing...")
 
         print('Logging techs...')
-        # technicians = [
-        #     Technician(username='MikeMike', password_hash='letsgetThisWIN'),
-        #     Technician(username='Lwest', password_hash='c0dingsGR8T'),
-            
-        # ]
+    
         t1 = Technician(username='MikeMike')
         t2 = Technician(username='Lwest')
         t1.password_hash ='letsgetThisWIN'
@@ -65,17 +61,17 @@ if __name__ == '__main__':
         db.session.commit()
 
         pool_visits = [
-            PoolVisit(visits_notes='write here',
+            PoolVisit(visits_notes='',
                 visits_FILTER_PSI='15', visits_PH_record='7.8', visits_CHL_record='0', visits_CHEMS_USED_record='2 quarts muriatic acid, 4 x 2.5 gal jug of chlorine', technicians_id=1, pools_id=1),
-            PoolVisit(visits_notes='write here', 
+            PoolVisit(visits_notes='', 
                 visits_FILTER_PSI='15', visits_PH_record='7.6', visits_CHL_record='5', visits_CHEMS_USED_record='0.5 quarts muriatic acid', technicians_id=1, pools_id=2),
-            PoolVisit(visits_notes='write here', 
+            PoolVisit(visits_notes='', 
                 visits_FILTER_PSI='12', visits_PH_record='7.8', visits_CHL_record='2', visits_CHEMS_USED_record='2 quarts muriatic acid, 2 x 2.5 gal jug of chlorine', technicians_id=1, pools_id=3),
-            PoolVisit(visits_notes='write here', 
+            PoolVisit(visits_notes='', 
                 visits_FILTER_PSI='10', visits_PH_record='7.6', visits_CHL_record='3', visits_CHEMS_USED_record='1 quarts muriatic acid, 1 x 2.5 gal jug chlorine', technicians_id=2, pools_id=4),
-            PoolVisit(visits_notes='write here', 
+            PoolVisit(visits_notes='', 
                 visits_FILTER_PSI='15', visits_PH_record='7.4', visits_CHL_record='5', visits_CHEMS_USED_record='none', technicians_id=2, pools_id=5),
-            PoolVisit(visits_notes='write here', 
+            PoolVisit(visits_notes='', 
                 visits_FILTER_PSI='25', visits_PH_record='7.8', visits_CHL_record='5', visits_CHEMS_USED_record='1 quart muriatic acid', technicians_id=2, pools_id=6),
             
         ]
