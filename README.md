@@ -8,6 +8,9 @@ User must sign in first using my 2 moc accounts,
 ### username: MikeMike
 ### password: letsgetThisWIN
 
+### username: Lwest
+### password: c0dingsGR8T
+
 # QUICK NOTE 1:
 To refresh the database for the website after deleting/adding anything, go into the terminal while in /server and type in: python seed.py
 # Quick NOTE 2:
@@ -52,11 +55,7 @@ View the past pool visits and either update or delete them entirely with the for
 
 - $cd server
 
-- $flask db init
-
-- $flask db commit -m 'initialize'
-
-- $flask fb upgrade head
+- $python app.py
 
 ## Run the application: 
 - in a new terminal 
@@ -73,12 +72,6 @@ View the past pool visits and either update or delete them entirely with the for
 - $pipenv shell
 
 - $python server/seed.py
-
-- Usage
-
-- Access the website.
-
-- Use the navigation bar to explore
 
 
 ## Special Thanks:
